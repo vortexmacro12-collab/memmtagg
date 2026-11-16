@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Загрузка...</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            cursor: pointer;
+        }
+        .container {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="playBtn">
+        <h2>Загрузка страницы...</h2>
+        <p>Нажмите на экран, если звук не воспроизводится автоматически</p>
+    </div>
+
+    <!-- Аудио элемент (подставьте имя своего файла) -->
+    <audio id="audio" src="ston-1.mp3" loop></audio>
+
+    <script>
+        const audio = document.getElementById('audio');
+        const container = document.getElementById('playBtn');
+
+        // Попытка запустить звук автоматически при загрузке
+        window.addEventListener('load', () => {
+            audio.play().catch(error => {
+                console.log("Автозапуск заблокирован браузером, требуется клик.");
+            });
+        });
+
+        // Запуск при любом клике/касании экрана (обход автоблокировки браузеров)
+        document.body.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+            }
+            container.style.display = 'none'; // Скрыть надпись после клика
+        });
+    </script>
+
+</body>
+</html>
